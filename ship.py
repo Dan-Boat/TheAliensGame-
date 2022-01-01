@@ -12,6 +12,8 @@ class Ship():
     """Class for ship """
     def __init__(self, screen):
         self.screen = screen
+        self.moving_right = False
+        self.moving_left = False
         
         #loading image 
         path_to_image = "C:/Users/Boateng/Desktop/Python_Scripts/AlienGame/images/ship.bmp"
@@ -26,6 +28,12 @@ class Ship():
     def blitme(self):
         """Draw the ship current location"""
         self.screen.screen.blit(self.image, self.rect)
+    
+    def update(self):
+        if self.moving_right:
+            self.rect.centerx += 1
         
+        if self.moving_left:
+            self.rect.centerx -=1
         
         

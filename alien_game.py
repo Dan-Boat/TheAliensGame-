@@ -7,6 +7,7 @@ Created on Fri Dec 31 01:14:44 2021
 #importing modules 
 import sys
 import pygame
+from pygame.sprite import Group
 
 #importing from paths 
 from game_setting import Settings
@@ -27,21 +28,23 @@ class AlienGame:
         pygame.display.set_caption("Alien Game")
         
         #import ship
-        self.ship = Ship(self)
+        self.ship = Ship(self.screen, self.settings)
+        self.bullets = Group()
 
 
     def run_game(self):
         """Start the main loop for the game."""
+       
         while True:
             # Watch for keyboard and mouse events
             
-            gf.check_events(self.ship)
+            gf.check_events(self.settings, self.screen, self.ship, self.bullets)
             self.ship.update()
 
             # Redraw the screen during each pass through the loop.
             # Make the most recently drawn screen visible.
-            
-            gf.update_screen(self.settings, self.screen, self.ship)
+            self.bullets.update()
+            gf.update_screen(self.settings, self.screen, self.ship, self.bullets)
 
             
             #pygame.display.flip()

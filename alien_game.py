@@ -13,13 +13,15 @@ from pygame.sprite import Group
 from game_setting import Settings
 from ship import Ship
 import game_functions as gf
+from aliens import Alien
 
 
 class AlienGame:
     """Overall class to manage game assets and behavior."""
 
     def __init__(self):
-        """Initialize the game, and create game resources."""
+        
+        
         pygame.init()
         self.settings = Settings()
 
@@ -30,11 +32,16 @@ class AlienGame:
         #import ship
         self.ship = Ship(self.screen, self.settings)
         self.bullets = Group()
+        self.aliens = Group()
+        
+        #define fleet of aliens 
+        gf.create_fleet(self.settings, self.screen, self.ship, self.aliens)
 
 
     def run_game(self):
         """Start the main loop for the game."""
-       
+        self.alien = Alien(self.settings, self.screen)
+        
         while True:
             # Watch for keyboard and mouse events
             
@@ -44,7 +51,7 @@ class AlienGame:
             # Redraw the screen during each pass through the loop.
             # Make the most recently drawn screen visible.
             self.bullets.update()
-            gf.update_screen(self.settings, self.screen, self.ship, self.bullets)
+            gf.update_screen(self.settings, self.screen, self.ship, self.bullets, self.aliens)
 
             
             #pygame.display.flip()
